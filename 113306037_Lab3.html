@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <h1>113306037_Lab3_Number Guessing Game</h1>
+    <div id="a"></div>
+    <script>
+        var a;
+        var times = 7;
+        var answer = Math.floor(Math.random()*98)+2; //不用Math.floor(無條件捨去，向下取整) answer可能會設成非整數(就永遠猜不到答案了!)
+        var isfound = false;
+        var max = 100;
+        var min =1;
+        
+
+
+        a= parseInt(window.prompt("請輸入1~100之間的數字"+"\n"+ "還剩下"+ times+"次機會"));
+       
+        while(!isfound){
+            if(!isNaN(a) && a>=min && a<=max){      /*isNaN(input) 檢查input是否不是/不能轉成數字(true>不能轉成數字; false>可變成數字)
+                                                      !isNaN(input) (true>可轉成數字; false>不能轉成數字)*/
+                if(a==answer){       
+                    isfound = true;
+                } else if(a>answer) {
+                    times--;
+                    if(times ==0 ){  //要在每次times--後檢查，不然會出現times==0但還是能輸入的情況(因為檢查次數用完的條件較晚處理，所以會得到額外的輸入機會)
+                        isfound=true;
+                        break;  //阿要記得times==0 就直接break;
+                    }
+                    max = a;
+                    a= window.prompt("請輸入"+min+"~"+max+"之間的數字" +"\n"+ "還剩下"+ times+"次機會");
+                } else if(a<answer){
+                    times--;
+                    if(times == 0){
+                        isfound=true;
+                        break;
+                    }
+                    min = a;
+                    a= window.prompt("請輸入"+min+"~"+max +"之間的數字" +"\n"+ "還剩下"+ times+"次機會");   
+                }
+            } else{
+                alert("請輸入範圍中的數字!");
+                a= parseInt(window.prompt("請輸入"+min+"~"+max+"之間的數字"+"\n"+ "還剩下"+ times+"次機會"));
+                continue;
+            }
+        }
+
+        if(isfound == true){
+            if(a==answer){
+                alert("答對了!");
+                document.getElementById("a").innerHTML= '<img src="correct.jpg" alt="correct.jpg">'
+
+
+            } else{
+                alert("答錯了... 正確答案是 " + answer);
+                document.getElementById("a").innerHTML= '<img src="wrong.jpg" alt="wrong.jpg">'
+            }
+        }
+
+    </script>
+
+</body>
+</html>
